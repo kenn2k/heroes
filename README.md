@@ -66,11 +66,39 @@ Separate business logic from components: By using TanStack Query, data fetching 
 
 Optimize queries: TanStack Query makes it easy to implement complex queries such as parallel queries, dependent queries, and infinite scrolling.
 
-Using TanStack Query allows you to create a more flexible, scalable, and developer-friendly application.</p>
+</p>
 
 <h2>How to Clone</h2>
 <code>git clone https://github.com/kenn2k/heroes</code>
 
 <h2>How to Start</h2>
-<code>yarn</code> <span>- install dependence</span> </br>
-<code>yarn dev</code> <span>- start the project</span>
+
+<h3>yarn (recommends cuz <code>concurrently</code>  is configured for yarn)</h3>
+
+```
+cd heroes
+
+yarn install - install dependence
+
+yarn dev - start the project
+```
+
+<h3>npm</h3>
+
+```
+cd heroes
+
+npm install - install dependence
+
+npm run dev - start the project
+```
+
+<h3>pnpm</h3>
+
+```
+cd heroes
+
+pnpm install - install dependence
+
+pnpm dev - start the project
+```
