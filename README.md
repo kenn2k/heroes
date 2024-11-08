@@ -6,15 +6,67 @@
 <p>Tailwind CSS: Fast and flexible style system.</p>
 <p>Axios: To send requests to the server.</p>
 <p>React-hook-form: Makes it easier to create forms with validation.</p>
+<p>Tanstack/react-query</p>
 
 <h2>Backend:</h2>
 
 <p>Express: Framework for creating servers on Node.js.</p>
 <p>Prisma ORM: For working with databases.</p>
 <p>PostgreSQL: Popular database for storing information.</p>
-<p>cloudinary: Service for storing and processing images.</p>
-<p>express-formidable: For handling uploaded files.</p>
-<p>concurrently: Runs multiple commands simultaneously.</p>
+<p>Cloudinary: Service for storing and processing images.</p>
+<p>Express-formidable: For handling uploaded files.</p>
+<p>Concurrently: Runs multiple commands simultaneously.</p>
+
+<h2>Path</h2>
+<p>"yarn run server" and "yarn run client": These are the commands that are executed concurrently. This is useful for developing both the frontend and backend simultaneously.</p>
+
+```
+ "scripts": {
+    "server": "cd ./server && yarn dev",
+    "client": "cd ./client && yarn dev",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
+  },
+```
+
+</br>
+
+<p>The application is configured to handle CORS requests only from a specific domain (specified in the BASE_URL environment variable). The allowed HTTP methods are GET, POST, PATCH, and DELETE, and the allowed header is Content-Type.</p>
+
+```
+app.use(
+  cors({
+    origin: process.env.BASE_URL,
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+```
+
+</br>
+
+<p>Prisma model</p>
+
+```
+model Superhero {
+  id                Int    @id @default(autoincrement())
+  nickname          String @unique
+  realName          String @map("real_name")
+  originDescription String @map("origin_description")
+  superpowers       String
+  catchPhrase       String @map("catch_phrase")
+  images            String
+}
+```
+
+</br>
+
+<h3>TanStack Query is a powerful library for managing asynchronous data in React applications. It allows you to</h3>
+<p>
+Separate business logic from components: By using TanStack Query, data fetching and updating logic is moved out of components, making code cleaner and more maintainable.
+
+Optimize queries: TanStack Query makes it easy to implement complex queries such as parallel queries, dependent queries, and infinite scrolling.
+
+Using TanStack Query allows you to create a more flexible, scalable, and developer-friendly application.</p>
 
 <h2>How to Clone</h2>
 <code>git clone https://github.com/kenn2k/heroes</code>
