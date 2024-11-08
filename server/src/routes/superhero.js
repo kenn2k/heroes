@@ -40,8 +40,7 @@ superheroRoutes.get("/:id", async (req, res) => {
 
 superheroRoutes.post("/upload", async (req, res) => {
   const { fields, files } = req;
-  console.log("Fields:", fields);
-  console.log("Files:", files);
+
   try {
     const result = await cloudinary.uploader.upload(files.images.path, {
       folder: "superheroes",
@@ -63,5 +62,57 @@ superheroRoutes.post("/upload", async (req, res) => {
     res
       .status(500)
       .json({ error: "Error creating superhero", message: error.message });
+  }
+});
+
+superheroRoutes.patch("/update/:id", async (req, res) => {
+  const { id } = req.params;
+  const { fields, files } = req;
+
+  try {
+    let updatedData = {
+      nickname: fields.nickname,
+      realName: fields.realName,
+      originDescription: fields.originDescription,
+      superpowers: fields.superpowers,
+      catchPhrase: fields.catchPhrase,
+    };
+
+    if (files?.images?.path) {
+      const result = await cloudinary.uploader.upload(files.images.path, {
+        folder: "superheroes",
+      });
+
+      updatedData.images = result.secure_url;
+    }
+
+    const updatedSuperhero = await prisma.superhero.update({
+      where: { id: Number(id) },
+      data: updatedData,
+    });
+
+    res.json(updatedSuperhero);
+  } catch (error) {
+    res.status(500).json({
+      error: "Error updating superhero",
+      message: error.message,
+    });
+  }
+});
+
+superheroRoutes.delete("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.superhero.delete({
+      where: { id: Number(id) },
+    });
+
+    res.json({ message: "Superhero deleted successfully" });
+  } catch (error) {
+    res.status(500).json({
+      error: "Error deleting superhero",
+      message: error.message,
+    });
   }
 });

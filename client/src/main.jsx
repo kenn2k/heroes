@@ -4,8 +4,10 @@ import App from "./App.jsx";
 import { ReactQueryClientProvider } from "./providers/QueryProvider.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Superhero from "./components/superhero/Superhero.jsx";
-import SuperheroDetails from "./components/superhero/SuperheroDetails.jsx";
+
 import CreateHeroForm from "./components/superhero/form/CreateHeroForm.jsx";
+import SuperheroDetails from "./components/superhero/details/SuperheroDetails.jsx";
+import EditHeroForm from "./components/superhero/form/EditHeroForm.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/create",
     element: <CreateHeroForm />,
+  },
+  {
+    path: "/edit/:id",
+    element: <EditHeroForm />,
   },
 ]);
 

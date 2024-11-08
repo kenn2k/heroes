@@ -1,27 +1,21 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import {
+  deleteHero,
+  fetchHeroById,
+  fetchHeroes,
+  patchHero,
+  postHero,
+} from "./config/api";
 
-const api = axios.create({
-  baseURL: "http://localhost:3000/superhero",
-});
 //* @Get
-const fetchHero = async () => {
-  const res = await api.get("/");
-  return res.data;
-};
-
 export const useGetHeroes = () => {
   return useQuery({
-    queryKey: ["get hero"],
-    queryFn: fetchHero,
+    queryKey: ["get heroes"],
+    queryFn: fetchHeroes,
   });
 };
 
-const fetchHeroById = async (id) => {
-  const res = await api.get(`/${id}`);
-  return res.data;
-};
-
+//* @Get one by id
 export const useGetHeroById = (id) => {
   return useQuery({
     queryKey: ["get hero", id],
@@ -31,49 +25,43 @@ export const useGetHeroById = (id) => {
 };
 
 //* @Post
-const postHero = async (data) => {
-  const formData = new FormData();
-
-  formData.append("nickname", data.nickname);
-  formData.append("realName", data.realName);
-  formData.append("originDescription", data.originDescription);
-  formData.append("superpowers", data.superpowers);
-  formData.append("catchPhrase", data.catchPhrase);
-  formData.append("images", data.images);
-
-  const res = await api.post("/upload", formData);
-
-  return res.data;
-};
-
 export const useCreateHero = () => {
-  const mutation = useMutation({
+  return useMutation({
     mutationKey: ["create hero"],
     mutationFn: postHero,
     onSuccess: () => {
-      console.log("success");
+      console.log("Hero created successfully");
     },
     onError: (error) => {
-      console.error("Помилка при створенні героя:", error);
+      console.error("Error creating hero:", error);
     },
   });
-  return mutation;
 };
 
-// //* @Patch
+//* @Patch
+export const useUpdateHero = () => {
+  return useMutation({
+    mutationKey: ["update hero"],
+    mutationFn: patchHero,
+    onSuccess: () => {
+      console.log("Hero updated successfully");
+    },
+    onError: (error) => {
+      console.error("Error updating hero:", error);
+    },
+  });
+};
 
-// const patchHero = async (id, data) => {
-//   const res = await
-//   return res.data;
-// };
-
-// export const useEditHero = () => {
-//   const mutation = useMutation({
-//     mutationFn: (id, data) => patchHero(id, data),
-//     onSuccess: () => {},
-//     onError: (error) => {
-//       console.error("Помилка при редагуванні героя:", error);
-//     },
-//   });
-//   return mutation;
-// };
+//* @Delete
+export const useDeleteHero = () => {
+  return useMutation({
+    mutationKey: ["delete hero"],
+    mutationFn: deleteHero,
+    onSuccess: () => {
+      console.log("Hero deleted successfully");
+    },
+    onError: (error) => {
+      console.error("Error deleting hero:", error);
+    },
+  });
+};

@@ -1,28 +1,32 @@
+import { useNavigate, useParams } from "react-router-dom";
+import { useUpdateHero } from "../../../hooks/useHero";
 import { useForm } from "react-hook-form";
 import data from "../../../../data.json";
-import { useCreateHero } from "../../../hooks/useHero";
-import { useNavigate } from "react-router-dom";
-const CreateHeroForm = () => {
+const EditHeroForm = () => {
+  const formData = data.formData;
   const {
     register,
     formState: { errors },
   } = useForm();
-  const { mutate } = useCreateHero();
+
+  const { id } = useParams();
+
+  const { mutate } = useUpdateHero();
+
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleEdit = (event) => {
     const formData = new FormData(event.target);
     const fields = Object.fromEntries(formData);
-
-    mutate(fields);
+    mutate({ id, data: fields });
     navigate("/");
   };
-  const formData = data.formData;
+
   return (
     <div className="h-screen ">
       <div className="flex items-center justify-center h-full">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleEdit}
           className="flex flex-col gap-4 p-6 border-2 rounded-xl"
         >
           {formData.map(({ id, label, type, required }) => (
@@ -45,7 +49,7 @@ const CreateHeroForm = () => {
             type="submit"
             className="px-4 py-2 text-white bg-red-600 rounded"
           >
-            Create Hero
+            Edit Hero
           </button>
         </form>
       </div>
@@ -53,4 +57,4 @@ const CreateHeroForm = () => {
   );
 };
 
-export default CreateHeroForm;
+export default EditHeroForm;

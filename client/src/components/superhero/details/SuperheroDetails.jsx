@@ -1,15 +1,21 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useGetHeroById } from "../../hooks/useHero";
-import Card from "../UI/Card";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDeleteHero, useGetHeroById } from "../../../hooks/useHero";
+import Card from "../../UI/Card";
 
 const SuperheroDetails = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetHeroById(id);
+  const deleteHero = useDeleteHero();
   const navigate = useNavigate();
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   if (!data) return <p>No hero found</p>;
+
+  const handleDelete = () => {
+    deleteHero.mutate(id);
+    navigate("/");
+  };
 
   const {
     nickname,
@@ -44,6 +50,17 @@ const SuperheroDetails = () => {
           <p className="mt-2 text-sm text-gray-500">
             Superpowers: {superpowers}
           </p>
+          <div className="flex justify-end gap-4 mt-6">
+            <button
+              onClick={handleDelete}
+              className="px-2 py-1 text-red-600 border-2 border-red-600 rounded-xl"
+            >
+              Delete
+            </button>
+            <Link to={`/edit/${id}`} className="px-2 py-1 border-2 rounded-xl">
+              Edit
+            </Link>
+          </div>
         </Card>
       </div>
     </div>

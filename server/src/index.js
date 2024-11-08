@@ -1,13 +1,15 @@
 import express from "express";
 import { superheroRoutes } from "./routes/superhero.js";
 import cors from "cors";
-
+import dotenv from "dotenv";
 const app = express();
 const port = 3000;
 
+dotenv.config();
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.BASE_URL,
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
