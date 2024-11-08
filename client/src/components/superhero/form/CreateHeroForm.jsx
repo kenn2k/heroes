@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
-import data from "../../../../data.json";
-import { useCreateHero } from "../../../hooks/useHero";
+import data from "../../../../data/data.json";
 import { useNavigate } from "react-router-dom";
+import { useCreateHero } from "../../../api/superhero";
+
 const CreateHeroForm = () => {
   const {
     register,

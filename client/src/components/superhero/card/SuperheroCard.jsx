@@ -1,30 +1,22 @@
-import { useState } from "react";
-import { useGetHeroes } from "../../../hooks/useHero";
 import SuperheroCardItem from "./SuperheroCardItem";
+import { useGetHeroes } from "../../../api/superhero";
+import { usePagination } from "../../../hooks/usePagination";
 
 const SuperheroCard = () => {
-  const [currentPage, setCurrentPage] = useState(1);
   const { data: allHeroes } = useGetHeroes();
+
   const itemsPerPage = 5;
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  const currentHeroes = allHeroes?.slice(startIndex, endIndex) || [];
-
-  const totalPages = allHeroes ? Math.ceil(allHeroes.length / itemsPerPage) : 0;
-
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  };
+  const {
+    currentItems: currentHeroes,
+    currentPage,
+    totalPages,
+    handleNext,
+    handlePrev,
+  } = usePagination({
+    items: allHeroes || [],
+    itemsPerPage,
+  });
 
   return (
     <div className="container px-4 mx-auto">

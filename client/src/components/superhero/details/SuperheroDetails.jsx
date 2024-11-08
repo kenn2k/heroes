@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useDeleteHero, useGetHeroById } from "../../../hooks/useHero";
-import Card from "../../UI/Card";
+
+import { useDeleteHero, useGetHeroById } from "../../../api/superhero";
 
 const SuperheroDetails = () => {
   const { id } = useParams();
@@ -37,7 +37,7 @@ const SuperheroDetails = () => {
         >
           Back
         </button>
-        <Card>
+        <dir className="p-8 border rounded-lg shadow-xl xs:w-full md:w-[696px]">
           <img
             src={images}
             alt={nickname}
@@ -61,7 +61,7 @@ const SuperheroDetails = () => {
               Edit
             </Link>
           </div>
-        </Card>
+        </dir>
       </div>
     </div>
   );

@@ -1,12 +1,5 @@
-import "./App.css";
-import Superhero from "./components/superhero/Superhero";
-
 function App() {
-  return (
-    <>
-      <Superhero />
-    </>
-  );
+  return <></>;
 }
 
 export default App;

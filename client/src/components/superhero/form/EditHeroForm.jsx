@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useUpdateHero } from "../../../hooks/useHero";
 import { useForm } from "react-hook-form";
-import data from "../../../../data.json";
+import data from "../../../../data/data.json";
+import { useUpdateHero } from "../../../api/superhero";
+
 const EditHeroForm = () => {
   const formData = data.formData;
   const {
