@@ -1,0 +1,35 @@
+{
+  "formData": [
+    {
+      "id": "nickname",
+      "label": "Nickname",
+      "type": "text",
+      "required": "nickname"
+    },
+    {
+      "id": "realName",
+      "label": "Real Name",
+      "type": "text",
+      "required": "realName"
+    },
+    {
+      "id": "originDescription",
+      "label": "Origin Description",
+      "type": "text",
+      "required": "originDescription"
+    },
+    {
+      "id": "superpowers",
+      "label": "Superpowers",
+      "type": "text",
+      "required": "superpowers"
+    },
+    {
+      "id": "catchPhrase",
+      "label": "Catch Phrase",
+      "type": "text",
+      "required": "catchPhrase"
+    },
+    { "id": "images", "label": "Image", "type": "file", "required": "images" }
+  ]
+}
